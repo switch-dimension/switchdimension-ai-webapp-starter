@@ -7,6 +7,7 @@ A modern starter kit for building web apps with Next.js, Shadcn UI, and Clerk au
 - **Styling:** Tailwind CSS
 - **Language:** TypeScript
 - **Authentication:** Clerk
+- **Database:** Prisma ORM with PostgreSQL (Supabase Ready)
 
 ## Prerequisites
 
@@ -29,6 +30,8 @@ npm --version
 - ✅ **Clerk Authentication** - Sign in/up with email, social providers
 - ✅ **Modern UI** - Clean, responsive design with Tailwind CSS
 - ✅ **TypeScript** - Full type safety
+- ✅ **Database Ready** - Prisma ORM with PostgreSQL support
+- ✅ **Type-Safe Database** - Generated Prisma client with full TypeScript support
 
 ## Getting Started
 
@@ -61,10 +64,55 @@ npm install
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
 CLERK_SECRET_KEY=sk_test_your_secret_key_here
 
-
+# Database Configuration
+DATABASE_URL="postgresql://username:password@localhost:5432/your_database_name"
 ```
 
-### 4. Running the Development Server
+### 4. Database Setup
+
+This starter includes Prisma ORM for database management. You can use it with any PostgreSQL database, including:
+
+- **Supabase** (recommended for production)
+- **Neon** (serverless PostgreSQL)
+- **Local PostgreSQL**
+- **Railway**, **PlanetScale**, or other cloud providers
+
+#### Option A: Using Supabase 
+
+1. Create a free account at [https://supabase.com](https://supabase.com)
+2. Create a new project
+3. Go to Settings → Database and copy the connection string
+4. Add it to your `.env` file as `DATABASE_URL`
+
+#### Option B: Using Neon
+
+1. Create a free account at [https://neon.tech](https://neon.tech)
+2. Create a new project
+3. Copy the connection string from your dashboard
+4. Add it to your `.env.local` file as `DATABASE_URL`
+
+#### Option C: Local PostgreSQL
+
+1. Install PostgreSQL locally
+2. Create a database
+3. Update the `DATABASE_URL` in `.env.local` with your local connection string
+
+#### Generate Prisma Client and Run Migrations
+
+After setting up your database, run:
+
+```bash
+# Generate the Prisma client
+npx prisma generate
+
+# Push the schema to your database (for development)
+npx prisma db push
+
+# Or run migrations (for production)
+npx prisma migrate dev --name init
+```
+
+### 5. Running the Development Server
 
 ```bash
 npm run dev
@@ -72,7 +120,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the main application.
 
-### 5. Testing Authentication
+### 6. Testing Authentication
 
 - Visit any route (protected by default)
 - You'll be redirected to Clerk's authentication flow. You will need to sign in for the first time. 
@@ -92,7 +140,14 @@ src/
 │   └── globals.css       # Global styles with Tailwind CSS v4
 ├── middleware.ts         # Clerk middleware with whitelist approach for public routes
 ├── components/           # Reusable UI components (empty, ready for development)
-└── lib/                  # Utility functions
+├── lib/
+│   ├── prisma.ts         # Prisma client configuration
+│   └── utils.ts          # Utility functions
+├── generated/
+│   └── prisma/           # Generated Prisma client (auto-generated)
+prisma/
+├── schema.prisma         # Database schema and configuration
+└── migrations/           # Database migration files
 ```
 
 ## Security Model
@@ -120,8 +175,55 @@ const isPublicRoute = createRouteMatcher([
 npm run build
 npm start
 ```
-## Roadmap
-- Prisma integration for easy setup with Supabase and Neon
+## Database Usage
+
+The starter includes a sample `Post` model to get you started. Here's how to use Prisma in your application:
+
+### Using the Prisma Client
+
+```typescript
+import { prisma } from '@/lib/prisma'
+
+// Create a new post
+const post = await prisma.post.create({
+  data: {
+    title: 'Hello World',
+    content: 'This is my first post!'
+  }
+})
+
+// Get all posts
+const posts = await prisma.post.findMany()
+
+// Get a specific post
+const post = await prisma.post.findUnique({
+  where: { id: 1 }
+})
+```
+
+### Adding New Models
+
+1. Edit `prisma/schema.prisma` to add your models
+2. Run `npx prisma db push` to update your database
+3. The Prisma client will be automatically regenerated
+
+### Useful Prisma Commands
+
+```bash
+# View your database in Prisma Studio
+npx prisma studio
+
+# Reset your database (development only)
+npx prisma migrate reset
+
+# Generate the Prisma client after schema changes
+npx prisma generate
+
+# Create and apply a new migration
+npx prisma migrate dev --name your_migration_name
+```
+
+
 
 ---
 
