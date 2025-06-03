@@ -1,6 +1,6 @@
 # 🚀 Switch Dimension Web App Starter Kit
 
-A modern starter kit for building web apps with Next.js and Shadcn UI.
+A modern starter kit for building web apps with Next.js and Shadcn UI. From SwitchDimension.com Build With AI
 
 - **Framework:** Next.js v15.3.3
 - **UI Library:** Shadcn UI (Style: Zinc)
