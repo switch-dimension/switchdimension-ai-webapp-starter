@@ -46,13 +46,7 @@ export default async function Dashboard() {
         </div>
       </div>
       
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h2 className="text-lg font-semibold text-blue-800 mb-2">Welcome to Your Dashboard!</h2>
-        <p className="text-blue-700">
-          This is your protected dashboard area.
-          Add your application&apos;s main functionality to the various dashboard pages.
-        </p>
-      </div>
+     
     </div>
   );
 }
