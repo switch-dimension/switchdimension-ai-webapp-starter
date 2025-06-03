@@ -1,8 +1,8 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
+import PostManager from "@/components/PostManager";
 
 export default async function Dashboard() {
   const { userId } = await auth();
-  const user = await currentUser();
 
   if (!userId) {
     return (
@@ -18,35 +18,11 @@ export default async function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Overview</h1>
-        <p className="text-gray-600 mt-1">Welcome to your dashboard! Here&apos;s an overview of your account.</p>
+        <h1 className="text-2xl font-bold text-gray-900">Posts</h1>
+        <p className="text-gray-600 mt-1">Create and manage your posts here.</p>
       </div>
       
-      
-      
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">User Information</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">User ID</label>
-            <p className="mt-1 text-sm text-gray-900 font-mono bg-gray-50 p-2 rounded">{userId}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <p className="mt-1 text-sm text-gray-900">{user?.emailAddresses[0]?.emailAddress}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">First Name</label>
-            <p className="mt-1 text-sm text-gray-900">{user?.firstName || 'Not provided'}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Last Name</label>
-            <p className="mt-1 text-sm text-gray-900">{user?.lastName || 'Not provided'}</p>
-          </div>
-        </div>
-      </div>
-      
-     
+      <PostManager />
     </div>
   );
 }
