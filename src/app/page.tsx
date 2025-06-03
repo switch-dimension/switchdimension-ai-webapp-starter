@@ -1,37 +1,57 @@
-import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8">
-      <div className="text-center space-y-6">
-        <h1 className="text-4xl font-bold">This is the Landing Page</h1>
-        <p className="text-lg text-gray-600">Welcome to our application!</p>
-        
-        <div className="space-y-4">
-          <SignedOut>
-            <div className="space-y-2">
-              <p>Sign in to access your dashboard</p>
-              <SignInButton mode="modal">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-                  Sign In
-                </button>
-              </SignInButton>
-            </div>
-          </SignedOut>
-          
-          <SignedIn>
-            <div className="space-y-2">
-              <p>Welcome back! Ready to continue?</p>
-              <Link 
-                href="/dashboard" 
-                className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
-              >
-                Go to Dashboard
-              </Link>
-            </div>
-          </SignedIn>
+export default async function Dashboard() {
+  const { userId } = await auth();
+  const user = await currentUser();
+
+  if (!userId) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
+          <p className="text-gray-600">You need to be signed in to view this page.</p>
         </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">Overview</h1>
+        <p className="text-gray-600 mt-1">Welcome to your dashboard! Here&apos;s an overview of your account.</p>
+      </div>
+      
+      
+      
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">User Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">User ID</label>
+            <p className="mt-1 text-sm text-gray-900 font-mono bg-gray-50 p-2 rounded">{userId}</p>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <p className="mt-1 text-sm text-gray-900">{user?.emailAddresses[0]?.emailAddress}</p>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">First Name</label>
+            <p className="mt-1 text-sm text-gray-900">{user?.firstName || 'Not provided'}</p>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Last Name</label>
+            <p className="mt-1 text-sm text-gray-900">{user?.lastName || 'Not provided'}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <h2 className="text-lg font-semibold text-blue-800 mb-2">Welcome to Your Dashboard!</h2>
+        <p className="text-blue-700">
+          This is your protected dashboard area.
+          Add your application&apos;s main functionality to the various dashboard pages.
+        </p>
       </div>
     </div>
   );
