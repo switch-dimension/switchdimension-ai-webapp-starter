@@ -10,8 +10,7 @@ A modern starter kit for building web apps with Next.js, Shadcn UI, and Clerk au
 
 ## Features
 
-- ✅ **Public Landing Page** - Accessible to everyone
-- ✅ **Protected Dashboard** - Requires authentication
+- ✅ **Protected by Default** - All routes require authentication unless explicitly made public
 - ✅ **Clerk Authentication** - Sign in/up with email, social providers
 - ✅ **Modern UI** - Clean, responsive design with Tailwind CSS
 - ✅ **TypeScript** - Full type safety
@@ -36,9 +35,7 @@ npm install
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
 CLERK_SECRET_KEY=sk_test_your_secret_key_here
 
-# Optional: Customize redirect URLs
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
 ```
 
 ### 3. Running the Development Server
@@ -47,26 +44,46 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the landing page.
+Open [http://localhost:3000](http://localhost:3000) to see the main application.
 
 ### 4. Testing Authentication
 
-- Visit the landing page (public, no auth required)
-- Click "Sign In" or "Sign Up" to authenticate
-- After signing in, you'll be redirected to the protected dashboard at `/dashboard`
+- Visit any route (protected by default)
+- You'll be redirected to Clerk's authentication flow
+- After signing in, you'll be redirected back to the main application
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── page.tsx          # Public landing page
-│   ├── dashboard/
-│   │   └── page.tsx      # Protected dashboard
-│   ├── layout.tsx        # Root layout with Clerk provider
-│   └── globals.css       # Global styles
-├── middleware.ts         # Clerk middleware for route protection
+│   ├── page.tsx          # Main application page (protected)
+│   ├── layout.tsx        # Root layout with Clerk provider and navigation
+│   ├── profile/          # User profile pages (empty, ready for development)
+│   ├── settings/         # Settings pages (empty, ready for development)
+│   └── globals.css       # Global styles with Tailwind CSS v4
+├── middleware.ts         # Clerk middleware with whitelist approach for public routes
+├── components/           # Reusable UI components (empty, ready for development)
 └── lib/                  # Utility functions
+```
+
+## Security Model
+
+This starter uses a **whitelist approach** for route protection:
+
+- **All routes are protected by default** - This is the safer approach
+- **Public routes must be explicitly defined** in `src/middleware.ts`
+- Currently, only Clerk's sign-in/sign-up routes are public
+- To add public routes (like landing pages), add them to the `isPublicRoute` matcher in middleware
+
+Example of adding public routes:
+```typescript
+const isPublicRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/about',        // Add public routes here
+  '/contact',      // Add public routes here
+])
 ```
 
 ## Building for Production
