@@ -8,6 +8,21 @@ A modern starter kit for building web apps with Next.js, Shadcn UI, and Clerk au
 - **Language:** TypeScript
 - **Authentication:** Clerk
 
+## Prerequisites
+
+Before you begin, make sure you have the following installed on your local machine:
+
+- **Node.js** (version 18.0 or higher) - [Download here](https://nodejs.org/)
+- **npm** (comes with Node.js) or **yarn** package manager
+- **Git** - [Download here](https://git-scm.com/)
+- A **Clerk account** (free) - [Sign up here](https://clerk.com)
+
+To check if you have Node.js and npm installed, run:
+```bash
+node --version
+npm --version
+```
+
 ## Features
 
 - ✅ **Protected by Default** - All routes require authentication unless explicitly made public
@@ -17,13 +32,24 @@ A modern starter kit for building web apps with Next.js, Shadcn UI, and Clerk au
 
 ## Getting Started
 
-### 1. Installation
+### 1. Clone the Repository
+
+First, clone this repository to your local machine:
+
+```bash
+git clone https://github.com/your-username/switchdimension-webapp-starter.git
+cd switchdimension-webapp-starter
+```
+
+### 2. Installation
+
+Install the project dependencies:
 
 ```bash
 npm install
 ```
 
-### 2. Clerk Setup
+### 3. Clerk Setup
 
 1. Create a Clerk account at [https://clerk.com](https://clerk.com)
 2. Create a new application in your Clerk dashboard
@@ -38,7 +64,7 @@ CLERK_SECRET_KEY=sk_test_your_secret_key_here
 
 ```
 
-### 3. Running the Development Server
+### 4. Running the Development Server
 
 ```bash
 npm run dev
@@ -46,7 +72,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the main application.
 
-### 4. Testing Authentication
+### 5. Testing Authentication
 
 - Visit any route (protected by default)
 - You'll be redirected to Clerk's authentication flow
