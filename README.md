@@ -75,8 +75,10 @@ Open [http://localhost:3000](http://localhost:3000) to see the main application.
 ### 5. Testing Authentication
 
 - Visit any route (protected by default)
-- You'll be redirected to Clerk's authentication flow
+- You'll be redirected to Clerk's authentication flow. You will need to sign in for the first time. 
 - After signing in, you'll be redirected back to the main application
+- You will see a claim application in the bottom right of the page. This takes you to the clerk dashboard to create an account or to setup your application. Add a name and copy the environment details. 
+- Create a file called env.local and place the variables there. There is an example in the file env.exmaple in the route / folder.
 
 ## Project Structure
 
@@ -118,6 +120,8 @@ const isPublicRoute = createRouteMatcher([
 npm run build
 npm start
 ```
+## Roadmap
+- Prisma integration for easy setup with Supabase and Neon
 
 ---
 
