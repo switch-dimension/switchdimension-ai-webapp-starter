@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { UserButton } from '@clerk/nextjs';
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
+import Sidebar from "@/components/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,33 +38,28 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen bg-background">
-            {/* Dashboard Header */}
-            <header className="bg-card shadow-sm border-b border-border">
-              <div className="max-w-6xl mx-auto">
-                <div className="flex justify-between items-center h-16">
-                  <div className="flex items-center space-x-4">
+            {/* Layout with Sidebar */}
+            <div className="flex h-screen">
+              {/* Sidebar */}
+              <Sidebar />
+              
+              {/* Main Content Area */}
+              <div className="flex-1 flex flex-col overflow-hidden">
+                {/* Simplified Header - only visible on mobile when sidebar is closed */}
+                <header className="lg:hidden bg-card shadow-sm border-b border-border">
+                  <div className="flex justify-center items-center h-16 pr-4">
                     <h1 className="text-xl font-semibold text-foreground">Switch Dimension</h1>
                   </div>
-                                  <div className="flex items-center space-x-4">
-                  <ThemeToggle />
-                  <UserButton 
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-8 h-8"
-                      }
-                    }}
-                  />
-                </div>
-                </div>
-              </div>
-            </header>
+                </header>
 
-            {/* Main Content Area */}
-            <main className="p-6">
-              <div className="max-w-6xl mx-auto">
-                {children}
+                {/* Main Content */}
+                <main className="flex-1 overflow-auto p-6">
+                  <div className="max-w-6xl mx-auto">
+                    {children}
+                  </div>
+                </main>
               </div>
-            </main>
+            </div>
           </div>
         </ThemeProvider>
       </body>
