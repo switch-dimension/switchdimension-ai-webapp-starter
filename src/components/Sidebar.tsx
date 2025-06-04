@@ -7,17 +7,14 @@ import { UserButton } from '@clerk/nextjs';
 import { ThemeToggle } from './theme-toggle';
 import { 
   Home, 
-  FileText, 
   Settings, 
-  User, 
   Menu,
-  X
+  X,
+  Rocket
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Posts', href: '/posts', icon: FileText },
-  { name: 'Profile', href: '/profile', icon: User },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
@@ -59,6 +56,7 @@ export default function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Logo/Brand */}
           <div className="flex items-center h-16 px-6 border-b border-border">
+            <Rocket className="mr-3 h-6 w-6 text-primary" />
             <h1 className="text-lg font-semibold text-foreground">Switch Dimension</h1>
           </div>
 
