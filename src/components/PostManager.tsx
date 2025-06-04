@@ -87,11 +87,11 @@ export default function PostManager() {
   return (
     <div className="space-y-8">
       {/* Create Post Form */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Create New Post</h2>
+      <div className="bg-card rounded-lg shadow-sm border border-border p-6">
+        <h2 className="text-lg font-semibold text-foreground mb-4">Create New Post</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1">
               Title
             </label>
             <input
@@ -99,13 +99,13 @@ export default function PostManager() {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-input rounded-md shadow-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
               placeholder="Enter post title..."
               disabled={isSubmitting}
             />
           </div>
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="content" className="block text-sm font-medium text-foreground mb-1">
               Content
             </label>
             <textarea
@@ -113,7 +113,7 @@ export default function PostManager() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-input rounded-md shadow-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
               placeholder="Enter post content..."
               disabled={isSubmitting}
             />
@@ -121,7 +121,7 @@ export default function PostManager() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Creating...' : 'Create Post'}
           </button>
@@ -129,26 +129,26 @@ export default function PostManager() {
       </div>
 
       {/* Posts List */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">All Posts</h2>
+      <div className="bg-card rounded-lg shadow-sm border border-border p-6">
+        <h2 className="text-lg font-semibold text-foreground mb-4">All Posts</h2>
         
         {isLoading ? (
           <div className="text-center py-8">
-            <div className="text-gray-500">Loading posts...</div>
+            <div className="text-muted-foreground">Loading posts...</div>
           </div>
         ) : posts.length === 0 ? (
           <div className="text-center py-8">
-            <div className="text-gray-500">No posts yet. Create your first post above!</div>
+            <div className="text-muted-foreground">No posts yet. Create your first post above!</div>
           </div>
         ) : (
           <div className="space-y-4">
             {posts.map((post) => (
-              <div key={post.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+              <div key={post.id} className="border border-border rounded-lg p-4 hover:shadow-sm transition-shadow">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-medium text-gray-900">{post.title}</h3>
-                  <span className="text-sm text-gray-500">{formatDate(post.createdAt)}</span>
+                  <h3 className="text-lg font-medium text-foreground">{post.title}</h3>
+                  <span className="text-sm text-muted-foreground">{formatDate(post.createdAt)}</span>
                 </div>
-                <p className="text-gray-700 whitespace-pre-wrap">{post.content}</p>
+                <p className="text-foreground whitespace-pre-wrap">{post.content}</p>
               </div>
             ))}
           </div>

@@ -3,6 +3,8 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { UserButton } from '@clerk/nextjs';
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,19 +28,26 @@ export default function RootLayout({
 }>) {
   return (
      <ClerkProvider>
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen bg-gray-50">
-          {/* Dashboard Header */}
-          <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="max-w-6xl mx-auto">
-              <div className="flex justify-between items-center h-16">
-                <div className="flex items-center space-x-4">
-                  <h1 className="text-xl font-semibold text-gray-900">Switch Dimension</h1>
-                </div>
-                <div className="flex items-center space-x-4">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen bg-background">
+            {/* Dashboard Header */}
+            <header className="bg-card shadow-sm border-b border-border">
+              <div className="max-w-6xl mx-auto">
+                <div className="flex justify-between items-center h-16">
+                  <div className="flex items-center space-x-4">
+                    <h1 className="text-xl font-semibold text-foreground">Switch Dimension</h1>
+                  </div>
+                                  <div className="flex items-center space-x-4">
+                  <ThemeToggle />
                   <UserButton 
                     appearance={{
                       elements: {
@@ -47,17 +56,18 @@ export default function RootLayout({
                     }}
                   />
                 </div>
+                </div>
               </div>
-            </div>
-          </header>
+            </header>
 
-          {/* Main Content Area */}
-          <main className="p-6">
-            <div className="max-w-6xl mx-auto">
-              {children}
-            </div>
-          </main>
-        </div>
+            {/* Main Content Area */}
+            <main className="p-6">
+              <div className="max-w-6xl mx-auto">
+                {children}
+              </div>
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
     </ClerkProvider>
