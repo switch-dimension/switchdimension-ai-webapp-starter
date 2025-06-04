@@ -40,7 +40,7 @@ npm --version
 First, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/switchdimension-webapp-starter.git
+git clone https://github.com/switch-dimension/switchdimension-webapp-starter.git
 cd switchdimension-webapp-starter
 ```
 
@@ -57,7 +57,7 @@ npm install
 1. Create a Clerk account at [https://clerk.com](https://clerk.com)
 2. Create a new application in your Clerk dashboard
 3. Copy your API keys from the Clerk dashboard
-4. Create a `.env.local` file in the root directory:
+4. Create a `.env` file in the root directory:
 
 ```bash
 # Clerk Configuration
@@ -72,8 +72,8 @@ DATABASE_URL="postgresql://username:password@localhost:5432/your_database_name"
 
 This starter includes Prisma ORM for database management. You can use it with any PostgreSQL database, including:
 
-- **Supabase** (recommended for production)
-- **Neon** (serverless PostgreSQL)
+- **Supabase** (You can run this locally for Free or via the Cloud)
+- **Neon** (Serverless Postgres)
 - **Local PostgreSQL**
 - **Railway**, **PlanetScale**, or other cloud providers
 
@@ -89,13 +89,13 @@ This starter includes Prisma ORM for database management. You can use it with an
 1. Create a free account at [https://neon.tech](https://neon.tech)
 2. Create a new project
 3. Copy the connection string from your dashboard
-4. Add it to your `.env.local` file as `DATABASE_URL`
+4. Add it to your `.env` file as `DATABASE_URL`
 
 #### Option C: Local PostgreSQL
 
-1. Install PostgreSQL locally
+1. Install PostgreSQL locally (PGadmin is helpful)
 2. Create a database
-3. Update the `DATABASE_URL` in `.env.local` with your local connection string
+3. Update the `DATABASE_URL` in `.env` with your local connection string
 
 #### Generate Prisma Client and Run Migrations
 
@@ -135,8 +135,6 @@ src/
 ├── app/
 │   ├── page.tsx          # Main application page (protected)
 │   ├── layout.tsx        # Root layout with Clerk provider and navigation
-│   ├── profile/          # User profile pages (empty, ready for development)
-│   ├── settings/         # Settings pages (empty, ready for development)
 │   └── globals.css       # Global styles with Tailwind CSS v4
 ├── middleware.ts         # Clerk middleware with whitelist approach for public routes
 ├── components/           # Reusable UI components (empty, ready for development)
@@ -150,24 +148,7 @@ prisma/
 └── migrations/           # Database migration files
 ```
 
-## Security Model
 
-This starter uses a **whitelist approach** for route protection:
-
-- **All routes are protected by default** - This is the safer approach
-- **Public routes must be explicitly defined** in `src/middleware.ts`
-- Currently, only Clerk's sign-in/sign-up routes are public
-- To add public routes (like landing pages), add them to the `isPublicRoute` matcher in middleware
-
-Example of adding public routes:
-```typescript
-const isPublicRoute = createRouteMatcher([
-  '/sign-in(.*)',
-  '/sign-up(.*)',
-  '/about',        // Add public routes here
-  '/contact',      // Add public routes here
-])
-```
 
 ## Building for Production
 
@@ -179,53 +160,3 @@ npm start
 
 The starter includes a sample `Post` model to get you started. Here's how to use Prisma in your application:
 
-### Using the Prisma Client
-
-```typescript
-import { prisma } from '@/lib/prisma'
-
-// Create a new post
-const post = await prisma.post.create({
-  data: {
-    title: 'Hello World',
-    content: 'This is my first post!'
-  }
-})
-
-// Get all posts
-const posts = await prisma.post.findMany()
-
-// Get a specific post
-const post = await prisma.post.findUnique({
-  where: { id: 1 }
-})
-```
-
-### Adding New Models
-
-1. Edit `prisma/schema.prisma` to add your models
-2. Run `npx prisma db push` to update your database
-3. The Prisma client will be automatically regenerated
-
-### Useful Prisma Commands
-
-```bash
-# View your database in Prisma Studio
-npx prisma studio
-
-# Reset your database (development only)
-npx prisma migrate reset
-
-# Generate the Prisma client after schema changes
-npx prisma generate
-
-# Create and apply a new migration
-npx prisma migrate dev --name your_migration_name
-```
-
-
-
----
-
-- Uses Tailwind CSS, TypeScript, and modern best practices.
-- For more info, see the [Next.js documentation](https://nextjs.org/docs), [Shadcn UI](https://ui.shadcn.com/), and [Clerk documentation](https://clerk.com/docs).
