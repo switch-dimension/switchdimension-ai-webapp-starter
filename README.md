@@ -51,6 +51,14 @@ Install the project dependencies:
 ```bash
 npm install
 ```
+Run the development server to see app:
+
+```bash
+npm run dev
+```
+- You should see the app appear at this address in your browser http://localhost:3000
+- It will prevent you from seeing the app until you login with Clerk
+- You can then claim the app setup in Clerk either via the popup on the bottom right when logged in or via the next step.
 
 ### 3. Clerk Setup
 
@@ -82,20 +90,20 @@ This starter includes Prisma ORM for database management. You can use it with an
 1. Create a free account at [https://supabase.com](https://supabase.com)
 2. Create a new project
 3. Go to Settings → Database and copy the connection string
-4. Add it to your `.env` file as `DATABASE_URL`
+4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
 #### Option B: Using Neon
 
 1. Create a free account at [https://neon.tech](https://neon.tech)
 2. Create a new project
 3. Copy the connection string from your dashboard
-4. Add it to your `.env` file as `DATABASE_URL`
+4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
 #### Option C: Local PostgreSQL
 
 1. Install PostgreSQL locally (PGadmin is helpful)
 2. Create a database
-3. Update the `DATABASE_URL` in `.env` with your local connection string
+4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
 #### Generate Prisma Client and Run Migrations
 
@@ -156,7 +164,9 @@ prisma/
 npm run build
 npm start
 ```
-## Database Usage
+## Troubleshooting
 
-The starter includes a sample `Post` model to get you started. Here's how to use Prisma in your application:
+- The publishableKey passed to Clerk is invalid: Check that you have the correct keys in the .env file in the root of the folder
+- No posts are being saved: Check that you have the database setup step complete
+- Denied Access: You need to setup Clerk first. 
 
