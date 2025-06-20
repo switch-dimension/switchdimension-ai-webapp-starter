@@ -44,7 +44,23 @@ git clone https://github.com/switch-dimension/switchdimension-webapp-starter.git
 cd switchdimension-webapp-starter
 ```
 
-### 2. Installation
+### 2. Clerk Setup
+
+1. Create a Clerk account at [https://clerk.com](https://clerk.com)
+2. Create a new application in your Clerk dashboard
+3. Copy your API keys from the Clerk dashboard
+4. Create a `.env` file in the root directory with the following pasted in. (Database URL you will get in the next steps)
+
+```bash
+# Clerk Configuration
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
+CLERK_SECRET_KEY=sk_test_your_secret_key_here
+
+# Database Configuration
+DATABASE_URL="postgresql://username:password@localhost:5432/your_database_name"
+```
+
+### 3. Installation
 
 Install the project dependencies:
 
@@ -57,24 +73,7 @@ Run the development server to see app:
 npm run dev
 ```
 - You should see the app appear at this address in your browser http://localhost:3000
-- It will prevent you from seeing the app until you login with Clerk
-- You can then claim the app setup in Clerk either via the popup on the bottom right when logged in or via the next step.
-
-### 3. Clerk Setup
-
-1. Create a Clerk account at [https://clerk.com](https://clerk.com)
-2. Create a new application in your Clerk dashboard
-3. Copy your API keys from the Clerk dashboard
-4. Create a `.env` file in the root directory:
-
-```bash
-# Clerk Configuration
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
-CLERK_SECRET_KEY=sk_test_your_secret_key_here
-
-# Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/your_database_name"
-```
+- It will prevent you from seeing the app until you login with Clerk. If you get a key error check your Clerk key is correct.
 
 ### 4. Database Setup
 
@@ -85,25 +84,36 @@ This starter includes Prisma ORM for database management. You can use it with an
 - **Local PostgreSQL**
 - **Railway**, **PlanetScale**, or other cloud providers
 
-#### Option A: Using Supabase 
+#### Option A: Using Supabase Local (Recommended)
+
+1. Make sure you have Docker installed and running on your machine
+2. Run the following command to start Supabase locally:
+```bash
+npx supabase start
+```
+3. This will start a local Supabase instance with PostgreSQL
+4. Copy the database URL from the output (usually `postgresql://postgres:postgres@localhost:54322/postgres`) You can also npx supabase status to get this info. 
+5. Add this to your `.env` file as `DATABASE_URL`
+
+#### Option B: Using Supabase Cloud
 
 1. Create a free account at [https://supabase.com](https://supabase.com)
 2. Create a new project
 3. Go to Settings → Database and copy the connection string
 4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
-#### Option B: Using Neon
+#### Option C: Using Neon
 
 1. Create a free account at [https://neon.tech](https://neon.tech)
 2. Create a new project
 3. Copy the connection string from your dashboard
 4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
-#### Option C: Local PostgreSQL
+#### Option D: Local PostgreSQL
 
 1. Install PostgreSQL locally (PGadmin is helpful)
 2. Create a database
-4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
+3. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
 #### Generate Prisma Client and Run Migrations
 
