@@ -87,6 +87,8 @@ This starter includes Prisma ORM for database management. You can use it with an
 #### Option A: Using Supabase Local (Recommended)
 
 1. Make sure you have Docker installed and running on your machine
+2. Make sure you have the Supabase global CLI installed 
+3. Install the supabase cli locally in the root of the folder with npx supabase 
 2. Run the following command to start Supabase locally:
 ```bash
 npx supabase start
