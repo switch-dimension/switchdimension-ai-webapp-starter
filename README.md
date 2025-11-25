@@ -2,6 +2,8 @@
 
 A modern starter kit for building web apps with the latest Next.js, Shadcn UI, and Clerk authentication. From SwitchDimension.com Build With AI
 
+> 📋 See [CHANGELOG.md](./CHANGELOG.md) for a detailed list of changes and version history.
+
 ## Tech Stack
 
 - **Framework:** Next.js v16.0.4 with React 19
