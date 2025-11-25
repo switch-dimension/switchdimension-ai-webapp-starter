@@ -1,6 +1,7 @@
-# 🚀 Switch Dimension Web App Starter Kit
+# 🚀 Web App Launch Kit (Core Version) from SwitchDimension
 
-A modern starter kit for building web apps with the latest Next.js, Shadcn UI, and Clerk authentication. From SwitchDimension.com Build With AI
+
+Everything you need to save time launching your projects. A modern starter kit for building web apps with the latest Next.js, Shadcn UI, and Clerk authentication, Prisma for Database Management. From SwitchDimension.com Build With AI
 
 > 📋 See [CHANGELOG.md](./CHANGELOG.md) for a detailed list of changes and version history.
 
