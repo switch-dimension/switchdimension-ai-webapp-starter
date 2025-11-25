@@ -1,13 +1,5 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import nextPlugin from '@next/eslint-plugin-next';
+import tseslint from 'typescript-eslint';
 
 const eslintConfig = [
   {
@@ -21,7 +13,17 @@ const eslintConfig = [
       "prisma/migrations/**",
     ],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    plugins: {
+      '@next/next': nextPlugin,
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+    },
+  },
+  ...tseslint.configs.recommended,
 ];
 
 export default eslintConfig;
