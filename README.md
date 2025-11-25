@@ -88,12 +88,19 @@ npm run dev
 
 This starter includes Prisma ORM for database management. You can use it with any PostgreSQL database, including:
 
-- **Supabase** (You can run this locally for Free or via the Cloud)
 - **Neon** (Serverless Postgres)
+- **Supabase** (You can run this locally for Free or via the Cloud)
 - **Local PostgreSQL**
 - **Railway**, **PlanetScale**, or other cloud providers
 
-#### Option A: Using Supabase Local (Recommended)
+#### Option: Using Neon (Easiest)
+
+1. Create a free account at [https://neon.tech](https://neon.tech)
+2. Create a new project
+3. Copy the connection string from your dashboard
+4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
+
+#### Option: Using Supabase Local 
 
 1. Make sure you have Docker installed and running on your machine
 2. Initialize Supabase in your project:
@@ -109,21 +116,14 @@ npx supabase start
    - You can also run `npx supabase status` to view connection details anytime
 6. Add this to your `.env` file as `DATABASE_URL`
 
-#### Option B: Using Supabase Cloud
+#### Option: Using Supabase Cloud
 
 1. Create a free account at [https://supabase.com](https://supabase.com)
 2. Create a new project
 3. Go to Settings → Database and copy the connection string
 4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
 
-#### Option C: Using Neon
-
-1. Create a free account at [https://neon.tech](https://neon.tech)
-2. Create a new project
-3. Copy the connection string from your dashboard
-4. Create an .env based on the env.example and add to your `.env` file as `DATABASE_URL`
-
-#### Option D: Local PostgreSQL
+#### Option: Local PostgreSQL
 
 1. Install PostgreSQL locally (PGadmin is helpful)
 2. Create a database
